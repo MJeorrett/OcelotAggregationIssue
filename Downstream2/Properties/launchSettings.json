@@ -1,11 +1,11 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "OcelotAggregation": {
+    "Downstream2": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/aggregate",
-      "applicationUrl": "http://localhost:5200",
+      "launchBrowser": false,
+      "launchUrl": "downstream2",
+      "applicationUrl": "http://localhost:5202",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

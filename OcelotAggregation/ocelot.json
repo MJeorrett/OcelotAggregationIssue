@@ -1,43 +1,43 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/odata/tenants",
+      "DownstreamPathTemplate": "/downstream1",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5102
+          "Port": 5201
         }
       ],
-      "UpstreamPathTemplate": "/api/tenants/metadata",
+      "UpstreamPathTemplate": "/api/downstream1",
       "UpstreamHttpMethod": [ "Get" ],
-      "Key": "tenants-odata-metadata"
+      "Key": "downstream1"
     },
     {
-      "DownstreamPathTemplate": "/odata/wallets",
+      "DownstreamPathTemplate": "/downstream2",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5101
+          "Port": 5202
         }
       ],
-      "UpstreamPathTemplate": "/api/wallets/metadata",
+      "UpstreamPathTemplate": "/api/downstream2",
       "UpstreamHttpMethod": [ "Get" ],
-      "Key": "wallets-odata-metadata"
+      "Key": "downstream2"
     }
   ],
   "Aggregates": [
     {
       "RouteKeys": [
-        "tenants-odata-metadata",
-        "wallets-odata-metadata"
+        "downstream1",
+        "downstream2"
       ],
-      "UpstreamPathTemplate": "/api/test",
+      "UpstreamPathTemplate": "/api/aggregate",
       "Aggregator": "MyAggregator"
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5100"
+    "BaseUrl": "http://localhost:5200"
   }
 }
