@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Ocelot.Middleware;
-using Ocelot.Multiplexer;
+using Ocelot.Middleware.Multiplexer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,15 +22,16 @@ namespace OcelotAggregation
             _logger = logger;
         }
 
-        public async Task<DownstreamResponse> Aggregate(List<HttpContext> responses)
+        public async Task<DownstreamResponse> Aggregate(List<DownstreamContext> responses)
         {
-            var responseBodies = responses.Select(response =>
+            var tasks = await Task.WhenAll(responses.Select(response =>
             {
-                _logger.LogDebug($"Status code {response.Response.StatusCode}.");
+                _logger.LogDebug($"Status code {response.DownstreamResponse.StatusCode}.");
 
-                using var responseReader = new StreamReader(response.Response.Body);
-                return responseReader.ReadToEnd();
-            }).ToList();
+                return response.DownstreamResponse.Content.ReadAsStringAsync();
+            }));
+
+            var responseBodies = tasks.Where(result => result != null).ToList();
 
             return new DownstreamResponse(
                 new StringContent(JsonConvert.SerializeObject(responseBodies)),

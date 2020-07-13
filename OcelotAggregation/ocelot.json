@@ -1,5 +1,5 @@
 {
-  "Routes": [
+  "ReRoutes": [
     {
       "DownstreamPathTemplate": "/downstream1",
       "DownstreamScheme": "http",
@@ -29,7 +29,7 @@
   ],
   "Aggregates": [
     {
-      "RouteKeys": [
+      "ReRouteKeys": [
         "downstream1",
         "downstream2"
       ],
