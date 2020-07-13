@@ -1,0 +1,43 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/odata/tenants",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5102
+        }
+      ],
+      "UpstreamPathTemplate": "/api/tenants/metadata",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "tenants-odata-metadata"
+    },
+    {
+      "DownstreamPathTemplate": "/odata/wallets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5101
+        }
+      ],
+      "UpstreamPathTemplate": "/api/wallets/metadata",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "wallets-odata-metadata"
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "tenants-odata-metadata",
+        "wallets-odata-metadata"
+      ],
+      "UpstreamPathTemplate": "/api/test",
+      "Aggregator": "MyAggregator"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5100"
+  }
+}
